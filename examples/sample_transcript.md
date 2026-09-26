@@ -1,7 +1,8 @@
 # Sample session transcript
 
-Ran with `OPENAI_API_KEY` set, model `gpt-4o-mini`. Steps printed by the agent
-are shown as `[step N]` lines.
+Illustrative example of the agent's step-by-step output format (steps are shown
+as `[step N]` lines). Set `OPENAI_API_KEY` and run `python agent.py "..."` to
+produce a live session like this.
 
 $ python agent.py "What is 15% of 240, and according to my notes what vector database do we use?"
 
