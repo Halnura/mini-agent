@@ -1,0 +1,19 @@
+RAG service design notes
+
+The retrieval layer stores document embeddings in a FAISS vector database.
+We chunk source documents to ~512 tokens with 64 tokens of overlap, embed
+them with a small open-source embedding model, and index them in FAISS for
+fast approximate nearest-neighbor search.
+
+At query time we do hybrid retrieval: dense search over FAISS plus BM25 over
+the raw text, then fuse the rankings with reciprocal rank fusion. The top 5
+chunks are injected into the prompt as grounding context.
+
+Evaluation: we track retrieval hit-rate@5 on a labeled question set and run
+a hallucination check comparing the final answer against the retrieved
+chunks. Prompt traces and retrieval scores are logged for every request so
+we can regress-test prompt changes before shipping.
+
+Cost control: embeddings are cached by content hash, and we set a token
+budget per request. If the budget is exceeded, the agent falls back to a
+shorter context window and notes the truncation in the trace.
