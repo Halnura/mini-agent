@@ -1,0 +1,12 @@
+# mini-agent requirements
+# Core: only the OpenAI SDK and httpx are hard requirements.
+openai>=1.0
+httpx>=0.27
+python-dotenv>=1.0
+
+# Preferred LLM backend (falls back to plain `openai` if missing).
+langchain-openai>=0.2
+
+# Optional: richer DuckDuckGo results (agent falls back to the
+# Instant Answer API with plain httpx if not installed).
+# ddgs>=9.0
